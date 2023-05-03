@@ -28,6 +28,10 @@ namespace RegAdm
             locator = (Locator)Resources[nameof(locator)];
             var registration = new Registration(/*true*/);
             locator.Authorization = new AuthorizationViewModel(registration);
+            locator.RoomsViewModel = new RoomsViewModel();
+            locator.UsersViewModel = new UsersViewModel();
+            locator.ClientsViewModel = new ClientsViewModel();
+            locator.ReservationsViewModel = new ReservationsViewModel();
             registration.AuthorizationChanged += OnAuthorizationChanged;
 
             DispatcherUnhandledException += OnException;            
