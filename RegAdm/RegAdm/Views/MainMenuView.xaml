@@ -10,20 +10,6 @@
              d:DesignHeight="450"
              d:DesignWidth="800"
              d:Background="White">
-    <UserControl.Resources>
-        <DataTemplate DataType="{x:Type vms:RoomsViewModel}">
-            <vs:RoomsView />
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vms:UsersViewModel}">
-            <vs:UsersView />
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vms:ClientsViewModel}">
-            <vs:ClientsView />
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vms:ReservationsViewModel}">
-            <vs:ReservationsView />
-        </DataTemplate>
-    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -38,9 +24,8 @@
 
             <ListBox x:Name="tables"
                      SelectionMode="Single"
-                     SelectedValuePath="ViewModel"
-                     BorderThickness="0">
-
+                     FontSize="11">
+                
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Horizontal" />
@@ -51,8 +36,8 @@
                     <Style>
                         <Setter Property="Control.Template">
                             <Setter.Value>
-                                <ControlTemplate TargetType="Control">
-                                    <ContentPresenter />
+                                <ControlTemplate TargetType="ListBoxItem">
+                                    <ContentPresenter Margin="4 1"/>
                                 </ControlTemplate>
                             </Setter.Value>
                         </Setter>
@@ -61,7 +46,7 @@
 
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <RadioButton Content="{Binding Title, Mode=OneWay}"
+                        <RadioButton Content="{Binding Mode=OneWay}"
                                      IsChecked="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListBoxItem}}">
                             <RadioButton.LayoutTransform>
                                 <ScaleTransform ScaleX="1.7"
@@ -81,6 +66,21 @@
 
         <ContentControl Content="{Binding SelectedValue, ElementName=tables}"
                         Grid.Row="1"
-                        Margin="7 0 7 7" />
+                        Margin="7 0 7 7">
+            <ContentControl.Resources>
+                <DataTemplate DataType="{x:Type vms:RoomsViewModel}">
+                    <vs:RoomsView />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type vms:UsersViewModel}">
+                    <vs:UsersView />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type vms:ClientsViewModel}">
+                    <vs:ClientsView />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type vms:ReservationsViewModel}">
+                    <vs:ReservationsView />
+                </DataTemplate>
+            </ContentControl.Resources>
+        </ContentControl>
     </Grid>
 </UserControl>

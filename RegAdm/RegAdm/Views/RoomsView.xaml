@@ -4,11 +4,73 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:RegAdm.Views"
+             xmlns:cvt="clr-namespace:RegAdm.Converters"
+             xmlns:vms="clr-namespace:RegAdmViewModels;assembly=RegAdmViewModels"
              mc:Ignorable="d"
              d:DesignHeight="450"
              d:DesignWidth="800"
              d:Background="White">
+    <d:UserControl.DataContext>
+        <vms:RoomsViewModel />
+    </d:UserControl.DataContext>
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <TextBlock Text="Типы комнат:"
+                       Margin="0 0 0 7"
+                       Style="{StaticResource titleStyle}" />
+            <ListView ItemsSource="{Binding RoomTypes, Mode=OneTime}"
+                      Grid.Row="1">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Наименование"
+                                        DisplayMemberBinding="{Binding Name}" />
+                        <GridViewColumn Header="Кол-во мест"
+                                        DisplayMemberBinding="{Binding Places}" />
+                        <GridViewColumn Header="Цена за сутки"
+                                        DisplayMemberBinding="{Binding PricePerDay,StringFormat={}{0} руб.}" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+
+        <Grid Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <TextBlock Text="Комнаты:"
+                       Margin="0 0 0 7"
+                       Style="{StaticResource titleStyle}" />
+            <ListView ItemsSource="{Binding Rooms, Mode=OneTime}"
+                      Grid.Row="1">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="№ комнаты"
+                                        DisplayMemberBinding="{Binding Number}" />
+                        <GridViewColumn Header="Тип комнаты"
+                                        DisplayMemberBinding="{Binding RoomType.Name}" />
+                        <GridViewColumn Header="Занято">
+                            <GridViewColumn.DisplayMemberBinding>
+                                <MultiBinding StringFormat="{}{0}/{1}">
+                                    <Binding Path="Reservations"
+                                             Converter="{x:Static cvt:ReservationsConverter.Instance}" />
+                                    <Binding Path="RoomType.Places" />
+                                </MultiBinding>
+                            </GridViewColumn.DisplayMemberBinding>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
 
     </Grid>
 </UserControl>

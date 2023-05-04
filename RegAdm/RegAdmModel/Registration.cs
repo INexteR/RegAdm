@@ -49,5 +49,8 @@ namespace RegAdmModel
         public IEnumerable<Room> Rooms { get; }
         public IEnumerable<Client> Clients { get; }
         public IEnumerable<Reservation> Reservations { get; }
+
+        IEnumerable<dynamic> IRoomsProvider.RoomTypes => RoomTypes;
+        IEnumerable<dynamic> IRoomsProvider.Rooms => Rooms;
     }
 }

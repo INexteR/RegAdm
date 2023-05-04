@@ -48,22 +48,11 @@ namespace RegAdmModel
             Thread.Sleep(new Random().Next(500, 2000));
 
             User? user = context.Users.FirstOrDefault(user => user.Login == login && user.Password == password);
-
-            if (user != null)
+            lock (this)
             {
-                lock (this)
-                {
-                    Status = AuthorizationStatus.Authorized;
-                    CurrentUser = user;
-                }
+                Status = user != null ? AuthorizationStatus.Authorized : AuthorizationStatus.Fail;
             }
-            else
-            {
-                lock (this)
-                {
-                    Status = AuthorizationStatus.Fail;
-                }
-            }
+            CurrentUser = user;
             OnAuthorizationChanged();
         }
 

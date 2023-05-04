@@ -28,7 +28,7 @@ namespace RegAdm
             locator = (Locator)Resources[nameof(locator)];
             var registration = new Registration(/*true*/);
             locator.Authorization = new AuthorizationViewModel(registration);
-            locator.RoomsViewModel = new RoomsViewModel();
+            locator.RoomsViewModel = new RoomsViewModel(registration);
             locator.UsersViewModel = new UsersViewModel();
             locator.ClientsViewModel = new ClientsViewModel();
             locator.ReservationsViewModel = new ReservationsViewModel();
@@ -49,7 +49,6 @@ namespace RegAdm
 
                 case AuthorizationStatus.None:
                     MainWindow.Title = "Авторизация";
-                    MainWindow.ClearValue(ContentControl.ContentTemplateProperty);
                     MainWindow.Content = locator.Authorization;
                     break;
             }
@@ -58,8 +57,7 @@ namespace RegAdm
         private void ToMenu()
         {
             MainWindow.Title = "Главное меню";
-            MainWindow.ClearValue(ContentControl.ContentProperty);
-            MainWindow.ContentTemplate = (DataTemplate)MainWindow.Resources["menu"];
+            MainWindow.Content = MainWindow.Resources["menu"];
         }
 
         private void OnException(object sender, DispatcherUnhandledExceptionEventArgs e)

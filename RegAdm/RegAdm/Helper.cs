@@ -10,6 +10,9 @@ namespace RegAdm
 {
     public static class Helper
     {
+        public const string ADMINISTRATOR = "Администратор";
+        public const string SENIOR_ADMINISTRATOR = $"Старший {ADMINISTRATOR}";
+
         public static ReadOnlyDictionary<AuthorizationStatus, string?> StatusDictionary { get; } =
             new Dictionary<AuthorizationStatus, string?>
             {

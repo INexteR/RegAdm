@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Model.Interfaces
 {
-    public interface IRegistration : ILoadSources, IAuthorization, IRoomsProvider
+    public interface IRoomsProvider
     {
+        IEnumerable<dynamic> RoomTypes { get; }
+        IEnumerable<dynamic> Rooms { get; }
     }
 }

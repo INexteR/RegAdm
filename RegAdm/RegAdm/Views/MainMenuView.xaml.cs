@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -23,6 +24,15 @@ namespace RegAdm.Views
         public MainMenuView()
         {
             InitializeComponent();
+            Locator locator = (Locator)FindResource(nameof(locator));
+            var add = tables.Items.Add;
+            if (locator.Authorization.CurrentUser.Role is Helper.SENIOR_ADMINISTRATOR)
+            {
+                add(locator.UsersViewModel);
+            }          
+            add(locator.ClientsViewModel);
+            add(locator.ReservationsViewModel);
+            add(locator.RoomsViewModel);
         }
     }
 }

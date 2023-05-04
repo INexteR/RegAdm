@@ -18,8 +18,6 @@
             <vs:AuthorizationView />
         </DataTemplate>
 
-        <DataTemplate x:Key="menu">
-            <vs:MainMenuView />
-        </DataTemplate>
+        <vs:MainMenuView x:Key="menu" x:Shared="False"/>
     </Window.Resources>
 </Window>
