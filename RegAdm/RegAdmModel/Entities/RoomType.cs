@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace RegAdmModel.Entities
 {
     [Table("roomtypes")]
-    public partial class RoomType
+    internal partial class RoomType
     {
         [Key]
         public int Id { get; set; }

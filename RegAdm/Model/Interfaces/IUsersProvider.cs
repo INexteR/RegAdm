@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Model.Interfaces
 {
-    public interface IRegistration : ILoadSources, IAuthorization, IRoomsProvider, IClientsProvider
+    public interface IUsersProvider
     {
     }
 }

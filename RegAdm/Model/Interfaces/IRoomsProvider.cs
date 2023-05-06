@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Model.DTOs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace Model.Interfaces
 {
     public interface IRoomsProvider
     {
-        IEnumerable<dynamic> RoomTypes { get; }
-        IEnumerable<dynamic> Rooms { get; }
+        IEnumerable<RoomTypeDTO> RoomTypes { get; }
+        IEnumerable<RoomDTO> Rooms { get; }
     }
 }

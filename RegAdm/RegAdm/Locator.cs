@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -39,5 +40,21 @@ namespace RegAdm
             get => Get<IReservationsViewModel>()!;
             set => Set(value);
         }
+
+        public IEnumerable GetTablesForCurrentUser()
+        {
+            if (Authorization?.CurrentUser is null)
+            {
+                throw new NotSupportedException();
+            }
+            if (Authorization.CurrentUser.Role is Helper.SENIOR_ADMINISTRATOR)
+            {
+                yield return UsersViewModel;
+            }
+            yield return ClientsViewModel;
+            yield return ReservationsViewModel;
+            yield return RoomsViewModel;
+        }
+        public bool Design { get; set; }
     }
 }

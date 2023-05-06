@@ -24,15 +24,6 @@ namespace RegAdm.Views
         public MainMenuView()
         {
             InitializeComponent();
-            Locator locator = (Locator)FindResource(nameof(locator));
-            var add = tables.Items.Add;
-            if (locator.Authorization.CurrentUser.Role is Helper.SENIOR_ADMINISTRATOR)
-            {
-                add(locator.UsersViewModel);
-            }          
-            add(locator.ClientsViewModel);
-            add(locator.ReservationsViewModel);
-            add(locator.RoomsViewModel);
         }
     }
 }

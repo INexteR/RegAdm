@@ -9,7 +9,7 @@ namespace RegAdmModel.Entities
     [Table("reservations")]
     [Index(nameof(RoomId), Name = "room_idx")]
     [Index(nameof(UserId), Name = "user_idx")]
-    public partial class Reservation
+    internal partial class Reservation
     {
         [Key]
         public int Id { get; set; }
@@ -18,15 +18,9 @@ namespace RegAdmModel.Entities
 
         public int RoomId { get; set; }
 
-        [NotMapped]
-        public int Days => EvictionDate.ToDateTime(default).Subtract(CheckInDate.ToDateTime(default)).Days;
-
         public DateOnly CheckInDate { get; set; }
 
         public DateOnly EvictionDate { get; set; }
-
-        [NotMapped]
-        public bool IsActual => CheckInDate != EvictionDate && CheckInDate != ActualEvictionDate;
 
         public DateOnly ActualEvictionDate { get; set; }
 

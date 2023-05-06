@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace RegAdmModel.Entities
 {
     [Table("clients")]
-    public partial class Client
+    internal partial class Client
     {
         [Key]
         public int Id { get; set; }

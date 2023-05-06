@@ -9,7 +9,7 @@ namespace RegAdmModel.Entities
     [Table("rooms")]
     [Index(nameof(RoomTypeId), Name = "roomtype_idx")]
     [Index(nameof(Number), IsUnique = true)]
-    public partial class Room
+    internal partial class Room
     {
         [Key]
         public int Id { get; set; }

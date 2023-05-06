@@ -10,6 +10,11 @@
              d:DesignHeight="450"
              d:DesignWidth="800"
              d:Background="White">
+    <UserControl.Resources>
+        <ObjectDataProvider x:Key="viewModels"
+                            ObjectInstance="{StaticResource locator}"
+                            MethodName="GetTablesForCurrentUser" />
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -24,8 +29,9 @@
 
             <ListBox x:Name="tables"
                      SelectionMode="Single"
-                     FontSize="11">
-                
+                     FontSize="11"
+                     ItemsSource="{Binding Source={StaticResource viewModels}, Mode=OneTime}">
+
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Horizontal" />
@@ -37,7 +43,7 @@
                         <Setter Property="Control.Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="ListBoxItem">
-                                    <ContentPresenter Margin="4 1"/>
+                                    <ContentPresenter Margin="4 1" />
                                 </ControlTemplate>
                             </Setter.Value>
                         </Setter>

@@ -10,6 +10,7 @@ using RegAdmModel;
 using Model;
 using System.Threading;
 using System.Windows.Controls;
+using System.ComponentModel;
 
 namespace RegAdm
 {
