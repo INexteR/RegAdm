@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace RegAdmModel.Entities
 {
     [Table("users")]
-    internal partial class User : IUser
+    internal partial class User
     {
         [Key]
         public int Id { get; set; }
@@ -23,6 +23,17 @@ namespace RegAdmModel.Entities
         public string Password { get; set; } = null!;
 
         public virtual ICollection<Reservation> Reservations { get; set; } = new List<Reservation>();
+
+        public User() { }
+        public User(int id, string fullName, DateOnly birthDate, string role, string login, string password)
+        {
+            Id = id;
+            FullName = fullName;
+            BirthDate = birthDate;
+            Role = role;
+            Login = login;
+            Password = password;
+        }
     }
 }
 

@@ -1,4 +1,5 @@
 ﻿using Model.DTOs;
+using Model.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,18 +11,21 @@ namespace ViewModels.Proxies
 {
     public class RoomProxy
     {
-        private readonly RoomDTO _room;
+        private readonly RoomDto _room;
+
+        public int Id => _room.Id;
 
         public short Number => _room.Number;
 
-        public RoomTypeProxy RoomType => _roomTypes[_room.RoomTypeId];
+        public RoomTypeProxy RoomType { get; }
 
-        private readonly IDictionary<int, RoomTypeProxy> _roomTypes;
+        public int Places { get; }
 
-        public RoomProxy(RoomDTO room, IDictionary<int, RoomTypeProxy> roomTypes)
+        public RoomProxy(RoomDto room, RoomTypeProxy roomType, int places)
         {
             _room = room;
-            _roomTypes = roomTypes;
+            RoomType = roomType;
+            Places = places;
         }
     }
 }

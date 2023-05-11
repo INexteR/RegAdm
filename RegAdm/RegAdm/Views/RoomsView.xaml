@@ -61,9 +61,8 @@
                         <GridViewColumn Header="Занято">
                             <GridViewColumn.DisplayMemberBinding>
                                 <MultiBinding StringFormat="{}{0}/{1}">
-                                    <Binding Path="Reservations"
-                                             Converter="{x:Static cvt:ReservationsConverter.Instance}" />
-                                    <Binding Path="RoomType.Places" />
+                                    <Binding Path="Places"/>
+                                    <Binding Path="RoomType.Places"/>
                                 </MultiBinding>
                             </GridViewColumn.DisplayMemberBinding>
                         </GridViewColumn>

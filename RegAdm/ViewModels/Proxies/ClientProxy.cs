@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ViewModels.Proxies
 {
-    public class ClientProxy : IdProxy<ClientDTO>
+    public class ClientProxy : IdProxy<ClientDto>
     {
         public string FullName => Data.FullName;
 
@@ -19,6 +19,6 @@ namespace ViewModels.Proxies
 
         public string Phone => Data.Phone;
 
-        public ClientProxy(ClientDTO client) : base(client.Id, client) { }
+        public ClientProxy(ClientDto client) : base(client.Id, client) { }
     }
 }

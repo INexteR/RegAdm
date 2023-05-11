@@ -21,6 +21,14 @@ namespace RegAdmModel.Entities
         public virtual ICollection<Reservation> Reservations { get; set; } = new List<Reservation>();
 
         public virtual RoomType RoomType { get; set; } = null!;
+
+        public Room() { }
+        public Room(int id, short number, int roomTypeId)
+        {
+            Id = id;
+            Number = number;
+            RoomTypeId = roomTypeId;
+        }
     }
 }
 

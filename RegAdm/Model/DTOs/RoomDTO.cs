@@ -6,17 +6,14 @@ using System.Threading.Tasks;
 
 namespace Model.DTOs
 {
-    public class RoomDTO
+    public class RoomDto : IdDto
     {
-        public int Id { get; }
+        public short Number { get; set; }
 
-        public short Number { get; }
+        public int RoomTypeId { get; set; }
 
-        public int RoomTypeId { get; }
-
-        public RoomDTO(int id, short number, int roomTypeId)
+        public RoomDto(int id, short number, int roomTypeId) : base(id)
         {
-            Id = id;
             Number = number;
             RoomTypeId = roomTypeId;
         }

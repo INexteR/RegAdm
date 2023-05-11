@@ -31,6 +31,18 @@ namespace RegAdmModel.Entities
         public virtual User User { get; set; } = null!;
 
         public virtual ICollection<Client> Clients { get; set; } = new List<Client>();
+
+        public Reservation() { }
+        public Reservation(int id, DateOnly bookingDate, int roomId, DateOnly checkInDate, DateOnly evictionDate, DateOnly actualEvictionDate, int userId)
+        {
+            Id = id;
+            BookingDate = bookingDate;
+            RoomId = roomId;
+            CheckInDate = checkInDate;
+            EvictionDate = evictionDate;
+            ActualEvictionDate = actualEvictionDate;
+            UserId = userId;
+        }
     }
 }
 

@@ -8,18 +8,19 @@ namespace ViewModels
 {
     public class Proxy<T> : ViewModelBase
     {
-        protected T Data { get; private set; }
-
-        public Proxy(T data) 
+        public T Data 
         { 
-            Data = data; 
+            get => Get<T>(string.Empty)!; 
+            set
+            {
+                OnSetData(value);
+                Set(value, string.Empty);
+            }
         }
 
-        public void SetData(T data)
+        public Proxy(T data)
         {
-            OnSetData(data);
             Data = data;
-            OnPropertyChanged(AllChanged);
         }
 
         protected virtual void OnSetData(T newData) { }

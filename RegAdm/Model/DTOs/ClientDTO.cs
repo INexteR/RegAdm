@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace Model.DTOs
 {
-    public class ClientDTO
+    public class ClientDto : IdDto
     {
-        public int Id { get; set; }
-
         public string FullName { get; set; }
 
         public DateOnly BirthDate { get; set; }
@@ -20,9 +18,9 @@ namespace Model.DTOs
 
         public string Phone { get; set; }
 
-        public ClientDTO(int id, string fullName, DateOnly birthDate, string seria, string number, string phone)
+        public ClientDto(int id, string fullName, DateOnly birthDate, string seria, string number, string phone)
+            : base(id)
         {
-            Id = id;
             FullName = fullName;
             BirthDate = birthDate;
             Seria = seria;

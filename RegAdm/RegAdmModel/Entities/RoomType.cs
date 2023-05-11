@@ -18,6 +18,15 @@ namespace RegAdmModel.Entities
         public int PricePerDay { get; set; }
 
         public virtual ICollection<Room> Rooms { get; set; } = new List<Room>();
+
+        public RoomType() { }
+        public RoomType(int id, string name, sbyte places, int pricePerDay)
+        {
+            Id = id;
+            Name = name;
+            Places = places;
+            PricePerDay = pricePerDay;
+        }
     }
 }
 

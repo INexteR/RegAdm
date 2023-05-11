@@ -25,6 +25,17 @@ namespace RegAdmModel.Entities
         public string Phone { get; set; } = null!;
 
         public virtual ICollection<Reservation> Reservations { get; set; } = new List<Reservation>();
+
+        public Client() { }
+        public Client(int id, string fullName, DateOnly birthDate, string seria, string number, string phone)
+        {
+            Id = id;
+            FullName = fullName;
+            BirthDate = birthDate;
+            Seria = seria;
+            Number = number;
+            Phone = phone;
+        }
     }
 }
 

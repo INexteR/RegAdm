@@ -1,4 +1,5 @@
 ﻿using Model;
+using Model.DTOs;
 using Model.Interfaces;
 using System.Windows.Input;
 
@@ -8,7 +9,7 @@ namespace ViewModels.Interfaces
     {
         AuthorizationStatus CurrentStatus { get; }
 
-        IUser? CurrentUser { get; }
+        UserDto? CurrentUser { get; }
 
         RelayCommand Authorize { get; }
 

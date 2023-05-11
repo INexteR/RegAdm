@@ -15,22 +15,27 @@ namespace RegAdmViewModels
 {
     public class RoomsViewModel : ViewModelBase, IRoomsViewModel
     {
-        //private readonly IRoomsProvider _roomsProvider;
+        //private readonly IRegistration _registration;
 
-        public RoomsViewModel(IRoomsProvider roomsProvider)
+        private readonly ObservableCollection<RoomTypeProxy> roomTypes;
+        public IEnumerable<RoomTypeProxy> RoomTypes => roomTypes;
+
+        private readonly ObservableCollection<RoomProxy> rooms;       
+        public IEnumerable<RoomProxy> Rooms => rooms;
+
+        public RoomsViewModel(IRegistration registration)
         {
-            //_roomsProvider = roomsProvider;
-            _roomTypes = roomsProvider.RoomTypes.ToDictionary(rt => rt.Id, rt => new RoomTypeProxy(rt));
-            _rooms = roomsProvider.Rooms.ToDictionary(r => r.Id, r => new RoomProxy(r, _roomTypes));
+            //_registration = registration;
+            roomTypes = new(registration.RoomTypesRepository.GetAll()
+                .Select(rt => new RoomTypeProxy(rt)));
+
+            rooms = new(registration.RoomsRepository.GetAll()
+                .Select(r => new RoomProxy(r, roomTypes.First(rt => rt.Id == r.RoomTypeId),
+                registration.ReservationsRepository.GetReservationsForRoom(r.Id)
+                .Sum(r => registration.ClientsRepository.GetClientsForReservation(r.Id).Count()))));
         }
 
         public RoomsViewModel() : this(new Registration()) { }
-
-        private readonly IDictionary<int, RoomTypeProxy> _roomTypes;
-        private readonly IDictionary<int, RoomProxy> _rooms;
-
-        public IEnumerable<RoomTypeProxy> RoomTypes => _roomTypes.Values;
-        public IEnumerable<RoomProxy> Rooms => _rooms.Values;
 
         public override string ToString()
         {

@@ -10,7 +10,7 @@ namespace ViewModels.Interfaces
 {
     public interface IRoomsViewModel
     {
-        IEnumerable<RoomTypeProxy> RoomTypes { get; }
+        IEnumerable<RoomTypeProxy> RoomTypes { get; } 
         IEnumerable<RoomProxy> Rooms { get; }
     }
 }

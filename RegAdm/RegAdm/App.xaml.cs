@@ -23,20 +23,19 @@ namespace RegAdm
         private Locator locator;
 #pragma warning restore CS8618
 
-        protected override async void OnStartup(StartupEventArgs e)
+        protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
             locator = (Locator)Resources[nameof(locator)];
-            var registration = new Registration(/*true*/);
+            var registration = new Registration();
             locator.Authorization = new AuthorizationViewModel(registration);
-            locator.RoomsViewModel = new RoomsViewModel(registration);
+            locator.RoomsViewModel = new RoomsViewModel();
             locator.UsersViewModel = new UsersViewModel();
             locator.ClientsViewModel = new ClientsViewModel();
             locator.ReservationsViewModel = new ReservationsViewModel();
             registration.AuthorizationChanged += OnAuthorizationChanged;
 
             DispatcherUnhandledException += OnException;            
-            await registration.LoadDataAsync();
         }
 
         private void OnAuthorizationChanged(object? sender, AuthorizationChangedArgs e)

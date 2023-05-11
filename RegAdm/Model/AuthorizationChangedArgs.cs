@@ -1,4 +1,5 @@
 ﻿using System;
+using Model.DTOs;
 using Model.Interfaces;
 
 namespace Model
@@ -7,9 +8,9 @@ namespace Model
     {
         public AuthorizationStatus NewStatus { get; }
 
-        public IUser? NewUser { get; }
+        public UserDto? NewUser { get; }
 
-        public AuthorizationChangedArgs(AuthorizationStatus newStatus, IUser? newUser = null)
+        public AuthorizationChangedArgs(AuthorizationStatus newStatus, UserDto? newUser = null)
         {
             if (!Enum.IsDefined(newStatus))
             {

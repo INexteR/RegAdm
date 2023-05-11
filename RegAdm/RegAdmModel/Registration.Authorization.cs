@@ -6,13 +6,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using RegAdmModel.Entities;
+using static RegAdmModel.RegistrationSettings;
+using Model.DTOs;
+using RegAdmModel.Helpers;
 
 namespace RegAdmModel
 {
     public partial class Registration : IAuthorization
     {
         public AuthorizationStatus Status { get; private set; }
-        public IUser? CurrentUser { get; private set; }
+        public UserDto? CurrentUser { get; private set; }
 
         private void OnAuthorizationChanged()
         {
@@ -47,12 +50,17 @@ namespace RegAdmModel
 
             Thread.Sleep(new Random().Next(500, 2000));
 
-            User? user = context.Users.FirstOrDefault(user => user.Login == login && user.Password == password);
+            User? user;
+            using (var context = new RegAdmContext(CONNECTION))
+            {
+                user = context.Users.FirstOrDefault(user => user.Login == login && user.Password == password);
+            }
+                
             lock (this)
             {
                 Status = user != null ? AuthorizationStatus.Authorized : AuthorizationStatus.Fail;
             }
-            CurrentUser = user;
+            CurrentUser = user?.ToDto();
             OnAuthorizationChanged();
         }
 

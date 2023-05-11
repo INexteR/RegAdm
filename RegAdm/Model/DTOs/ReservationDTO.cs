@@ -7,29 +7,23 @@ using System.Threading.Tasks;
 
 namespace Model.DTOs
 {
-    public class ReservationDTO
+    public class ReservationDto : IdDto
     {
-        public int Id { get; set; }
-
         public DateOnly BookingDate { get; set; }
 
         public int RoomId { get; set; }
-
-        public int Days => EvictionDate.ToDateTime(default).Subtract(CheckInDate.ToDateTime(default)).Days;
 
         public DateOnly CheckInDate { get; set; }
 
         public DateOnly EvictionDate { get; set; }
 
-        public bool IsActual => CheckInDate != EvictionDate && CheckInDate != ActualEvictionDate;
-
         public DateOnly ActualEvictionDate { get; set; }
 
         public int UserId { get; set; }
 
-        public ReservationDTO(int id, DateOnly bookingDate, int roomId, DateOnly checkInDate, DateOnly evictionDate, DateOnly actualEvictionDate, int userId)
+        public ReservationDto(int id, DateOnly bookingDate, int roomId, DateOnly checkInDate, DateOnly evictionDate, DateOnly actualEvictionDate, int userId)
+            : base(id)
         {
-            Id = id;
             BookingDate = bookingDate;
             RoomId = roomId;
             CheckInDate = checkInDate;

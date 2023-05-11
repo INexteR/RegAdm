@@ -10,7 +10,9 @@ namespace ViewModels.Proxies
 {
     public class RoomTypeProxy
     {
-        private readonly RoomTypeDTO _roomType;
+        private readonly RoomTypeDto _roomType;
+
+        public int Id => _roomType.Id;
 
         public string Name => _roomType.Name;
 
@@ -18,7 +20,7 @@ namespace ViewModels.Proxies
 
         public int PricePerDay => _roomType.PricePerDay;
         
-        public RoomTypeProxy(RoomTypeDTO roomType)
+        public RoomTypeProxy(RoomTypeDto roomType)
         {
             _roomType = roomType;
         }

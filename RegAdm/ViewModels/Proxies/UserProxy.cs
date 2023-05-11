@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ViewModels.Proxies
 {
-    public class UserProxy : IdProxy<UserDTO>
+    public class UserProxy : IdProxy<UserDto>
     {
         public string FullName => Data.FullName;
 
@@ -19,6 +19,6 @@ namespace ViewModels.Proxies
 
         public string Password => Data.Password;
 
-        public UserProxy(UserDTO user) : base(user.Id, user) { }
+        public UserProxy(UserDto user) : base(user.Id, user) { }
     }
 }
