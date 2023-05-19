@@ -4,11 +4,93 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:RegAdm.Views"
+             xmlns:vms="clr-namespace:RegAdmViewModels;assembly=RegAdmViewModels"
              mc:Ignorable="d"
              d:DesignHeight="450"
              d:DesignWidth="800"
              d:Background="White">
+    <d:UserControl.DataContext>
+        <vms:ClientsViewModel />
+    </d:UserControl.DataContext>
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid Margin="0 0 0 7">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Клиенты:"
+                       Style="{StaticResource titleStyle}" />
+            <TextBlock Grid.Column="1"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center">
+                <Run Text="Показано" />
+                <Run Text="{Binding Clients.Count, Mode=OneWay}" />
+                <Run Text="из" />
+                <Run Text="{Binding Clients.Count, BindsDirectlyToSource=True, Mode=OneWay}" />
+            </TextBlock>
+            <Button Grid.Column="2"
+                    Content="Добавить клиента"
+                    Click="AddClick" />
+        </Grid>
+        <DataGrid Grid.Row="1"
+                  ItemsSource="{Binding Clients, Mode=OneTime}">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="ФИО / Телефон">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding FullName}" />
+                                <TextBlock Text="{Binding Phone}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
 
+                <DataGridTemplateColumn Header="Дата рождения">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock VerticalAlignment="Center"
+                                       Text="{Binding BirthDate,StringFormat={}{0:dd MMMM yyyy}, ConverterCulture=Ru-ru}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Серия / Номер">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock VerticalAlignment="Center">
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0} {1}">
+                                        <Binding Path="Seria"/>
+                                        <Binding Path="Number"/>
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Button Content="Редактировать"
+                                        VerticalAlignment="Center"
+                                        Margin="0 0 1 0"
+                                        Click="UpdateClick" />
+                                <Button Content="Удалить"
+                                        VerticalAlignment="Center"
+                                        Click="RemoveClick" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>

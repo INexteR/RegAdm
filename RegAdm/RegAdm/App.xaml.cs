@@ -23,19 +23,21 @@ namespace RegAdm
         private Locator locator;
 #pragma warning restore CS8618
 
-        protected override void OnStartup(StartupEventArgs e)
+        protected async override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+            System.Windows.Forms.Application.EnableVisualStyles();
             locator = (Locator)Resources[nameof(locator)];
             var registration = new Registration();
             locator.Authorization = new AuthorizationViewModel(registration);
-            locator.RoomsViewModel = new RoomsViewModel();
-            locator.UsersViewModel = new UsersViewModel();
-            locator.ClientsViewModel = new ClientsViewModel();
-            locator.ReservationsViewModel = new ReservationsViewModel();
-            registration.AuthorizationChanged += OnAuthorizationChanged;
+            locator.RoomsViewModel = new RoomsViewModel(registration);
+            locator.UsersViewModel = new UsersViewModel(registration);
+            locator.ClientsViewModel = new ClientsViewModel(registration);
+            locator.ReservationsViewModel = new ReservationsViewModel(registration);
+            registration.AuthorizationChanged += OnAuthorizationChanged;  
 
-            DispatcherUnhandledException += OnException;            
+            DispatcherUnhandledException += OnException; 
+            await registration.LoadAsync();          
         }
 
         private void OnAuthorizationChanged(object? sender, AuthorizationChangedArgs e)

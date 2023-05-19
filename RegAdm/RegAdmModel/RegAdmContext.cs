@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using RegAdmModel.Entities;
 using RegAdmModel.Testing;
+using static RegAdmModel.RegistrationSettings;
 
 namespace RegAdmModel
 {
@@ -33,9 +34,8 @@ namespace RegAdmModel
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            string adm = "Администратор";
             modelBuilder.Entity<User>()
-                .ToTable(t => t.HasCheckConstraint("Role", $"Role IN ('{adm}', 'Старший {adm}')"))
+                .ToTable(t => t.HasCheckConstraint("Role", $"Role IN ('{ADMINISTRATOR}', '{SENIOR_ADMINISTRATOR}')"))
                 .HasData(Data.Users);
 
             modelBuilder.Entity<RoomType>().HasData(Data.RoomTypes);

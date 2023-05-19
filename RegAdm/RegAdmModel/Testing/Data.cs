@@ -21,7 +21,7 @@ namespace RegAdmModel.Testing
         private const string usersData = @"1	Морозов Владимир Артурович	1997-12-08	Администратор	adillon@outlook.com	9+DSDUS2
 2	Андреева Александра Георгиевна	1984-04-28	Администратор	jgoerz7n@live.com	0k038%4$
 3	Евсеева Вероника Матвеевна	1979-03-25	Администратор	citadel3@outlook.com	232@048F
-4	Блинов Даниил Романович	1999-08-21	Администратор	Dan323x021@yandex.com	dns73bhs3";
+4	Блинов Даниил Романович	1999-08-21	Старший администратор	Dan323x021@yandex.com	dns73bhs3";
 
         private static RoomType[] roomTypes = null!;
         public static IEnumerable<RoomType> RoomTypes =>

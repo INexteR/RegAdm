@@ -4,11 +4,106 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:RegAdm.Views"
+             xmlns:vms="clr-namespace:RegAdmViewModels;assembly=RegAdmViewModels"
              mc:Ignorable="d"
              d:DesignHeight="450"
              d:DesignWidth="800"
              d:Background="White">
+    <d:UserControl.DataContext>
+        <vms:ReservationsViewModel />
+    </d:UserControl.DataContext>
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid Margin="0 0 0 7">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Бронирования:"
+                       Style="{StaticResource titleStyle}" />
+            <TextBlock Grid.Column="1"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center">
+                <Run Text="Показано" />
+                <Run Text="{Binding Reservations.Count, Mode=OneWay}" />
+                <Run Text="из" />
+                <Run Text="{Binding Reservations.Count, BindsDirectlyToSource=True, Mode=OneWay}" />
+            </TextBlock>
+            <Button Grid.Column="2"
+                    Content="Добавить бронирование"
+                    Click="AddClick" />
+        </Grid>
+        <DataGrid Grid.Row="1"
+                  ItemsSource="{Binding Reservations, Mode=OneTime}">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="Дата бронирования">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding BookingDate, StringFormat={}{):dd MMMM yyyy}, ConverterCulture=Ru-ru}"
+                                       VerticalAlignment="Center" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
 
+                <DataGridTemplateColumn Header="Комната">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Room.Name}"
+                                       VerticalAlignment="Center" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Даты заселения / выселения">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding CheckInDate}" />
+                                <TextBlock Text="{Binding EvictionDate}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Фактическая дата выселения">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding ActualEvictionDate}"
+                                       VerticalAlignment="Center" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Сотрудник">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock VerticalAlignment="Center"
+                                       Text="{Binding FullName}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridCheckBoxColumn Binding="{Binding IsActual}"
+                                        IsReadOnly="True"
+                                        Header="Актуально" />
+
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Button Content="Редактировать"
+                                        VerticalAlignment="Center"
+                                        Margin="0 0 1 0"
+                                        Click="UpdateClick" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>

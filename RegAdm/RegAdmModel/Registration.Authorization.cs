@@ -7,15 +7,13 @@ using System.Text;
 using System.Threading.Tasks;
 using RegAdmModel.Entities;
 using static RegAdmModel.RegistrationSettings;
-using Model.DTOs;
-using RegAdmModel.Helpers;
 
 namespace RegAdmModel
 {
     public partial class Registration : IAuthorization
     {
         public AuthorizationStatus Status { get; private set; }
-        public UserDto? CurrentUser { get; private set; }
+        public IUser? CurrentUser { get; private set; }
 
         private void OnAuthorizationChanged()
         {
@@ -60,7 +58,7 @@ namespace RegAdmModel
             {
                 Status = user != null ? AuthorizationStatus.Authorized : AuthorizationStatus.Fail;
             }
-            CurrentUser = user?.ToDto();
+            CurrentUser = user;
             OnAuthorizationChanged();
         }
 

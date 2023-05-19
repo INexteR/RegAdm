@@ -1,5 +1,4 @@
-﻿using Model.DTOs;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace Model.Collection
@@ -52,5 +51,5 @@ namespace Model.Collection
             }
         }
     }
-    public delegate bool Equality<T>(T? x, T? y);
+    public delegate bool Equality<T>(T x, T y);
 }

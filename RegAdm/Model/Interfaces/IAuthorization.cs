@@ -1,5 +1,4 @@
-﻿using Model.DTOs;
-using System;
+﻿using System;
 using System.Threading.Tasks;
 
 namespace Model.Interfaces
@@ -8,7 +7,7 @@ namespace Model.Interfaces
     {
         AuthorizationStatus Status { get; }
 
-        UserDto? CurrentUser { get; }
+        IUser? CurrentUser { get; }
 
         void Authorize(string login, string password);
 

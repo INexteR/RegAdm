@@ -27,19 +27,17 @@
             <TextBlock Text="Типы комнат:"
                        Margin="0 0 0 7"
                        Style="{StaticResource titleStyle}" />
-            <ListView ItemsSource="{Binding RoomTypes, Mode=OneTime}"
+            <DataGrid ItemsSource="{Binding RoomTypes, Mode=OneTime}"
                       Grid.Row="1">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Наименование"
-                                        DisplayMemberBinding="{Binding Name}" />
-                        <GridViewColumn Header="Кол-во мест"
-                                        DisplayMemberBinding="{Binding Places}" />
-                        <GridViewColumn Header="Цена за сутки"
-                                        DisplayMemberBinding="{Binding PricePerDay,StringFormat={}{0} руб.}" />
-                    </GridView>
-                </ListView.View>
-            </ListView>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Наименование"
+                                        Binding="{Binding Name, Mode=OneTime}" />
+                    <DataGridTextColumn Header="Кол-во мест"
+                                        Binding="{Binding Places, Mode=OneTime}" />
+                    <DataGridTextColumn Header="Цена за сутки"
+                                        Binding="{Binding PricePerDay,StringFormat={}{0} руб., Mode=OneTime}" />
+                </DataGrid.Columns>
+            </DataGrid>
         </Grid>
 
         <Grid Row="1">
@@ -50,25 +48,23 @@
             <TextBlock Text="Комнаты:"
                        Margin="0 0 0 7"
                        Style="{StaticResource titleStyle}" />
-            <ListView ItemsSource="{Binding Rooms, Mode=OneTime}"
+            <DataGrid ItemsSource="{Binding Rooms, Mode=OneTime}"
                       Grid.Row="1">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="№ комнаты"
-                                        DisplayMemberBinding="{Binding Number}" />
-                        <GridViewColumn Header="Тип комнаты"
-                                        DisplayMemberBinding="{Binding RoomType.Name}" />
-                        <GridViewColumn Header="Занято">
-                            <GridViewColumn.DisplayMemberBinding>
-                                <MultiBinding StringFormat="{}{0}/{1}">
-                                    <Binding Path="Places"/>
-                                    <Binding Path="RoomType.Places"/>
-                                </MultiBinding>
-                            </GridViewColumn.DisplayMemberBinding>
-                        </GridViewColumn>
-                    </GridView>
-                </ListView.View>
-            </ListView>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="№ комнаты"
+                                        Binding="{Binding Number, Mode=OneTime}" />
+                    <DataGridTextColumn Header="Тип комнаты"
+                                        Binding="{Binding RoomType.Name, Mode=OneTime}" />
+                    <DataGridTextColumn Header="Занято">
+                        <DataGridTextColumn.Binding>
+                            <MultiBinding StringFormat="{}{0}/{1}" Mode="OneTime">
+                                <Binding Path="Reservations" Converter="{x:Static cvt:PlacesConverter.Instance}"/>
+                                <Binding Path="RoomType.Places" />
+                            </MultiBinding>
+                        </DataGridTextColumn.Binding>
+                    </DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
         </Grid>
 
     </Grid>

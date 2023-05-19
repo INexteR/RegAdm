@@ -1,4 +1,4 @@
-﻿using Model.DTOs;
+﻿using Model.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,11 +11,11 @@ namespace RegAdmModel.Helpers
     {
         public static NotImplementedException NotImplemented { get; } = new();
 
-        public static void ThrowIfIdNotZero(IdDto idDto)
+        public static void ThrowIfIdNotZero(IIdEntity entity)
         {
-            if (idDto.Id != 0)
+            if (entity.Id != 0)
             {
-                throw new ArgumentException("Id было 0");
+                throw new ArgumentException("Id имело значение, отличное от 0");
             }
         }
     }

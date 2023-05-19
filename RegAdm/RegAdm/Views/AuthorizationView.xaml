@@ -17,70 +17,76 @@
     <UserControl.Resources>
         <vms:LoginPassword x:Key="lp" />
     </UserControl.Resources>
-    <StackPanel VerticalAlignment="Center"
-                HorizontalAlignment="Center"
-                Width="335">
-        <StackPanel DataContext="{StaticResource lp}">
-            <TextBlock FontSize="27"
-                       Text="Вход в учетную запись" />
-            <TextBlock Text="ЛОГИН"
-                       Margin="0 5" />
-            <TextBox Text="{Binding Login, UpdateSourceTrigger=PropertyChanged}" />
-            <TextBlock Text="ПАРОЛЬ"
-                       Margin="0 5" />
-            <TextBox Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" />
-        </StackPanel>
+    <Border BorderBrush="Gray"
+            BorderThickness="2"
+            CornerRadius="5"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Center">
+        <StackPanel Margin="7"
+                    Width="335">
+            <StackPanel DataContext="{StaticResource lp}">
+                <TextBlock FontSize="27"
+                           Text="Авторизация"
+                           HorizontalAlignment="Center" />
+                <TextBlock Text="ЛОГИН"
+                           Margin="0 5" />
+                <TextBox Text="{Binding Login, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock Text="ПАРОЛЬ"
+                           Margin="0 5" />
+                <TextBox Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" />
+            </StackPanel>
 
-        <Button Content="Войти"
-                Command="{Binding Authorize}"
-                CommandParameter="{StaticResource lp}"
-                Margin="0 10">
-        </Button>
+            <Button Content="Войти"
+                    Command="{Binding Authorize}"
+                    CommandParameter="{StaticResource lp}"
+                    Margin="0 10">
+            </Button>
 
-        <StackPanel DataContext="{Binding CurrentStatus}">
-            <TextBlock Text="{Binding  Converter={x:Static cvt:FromDictionaryConverter.Instance}, ConverterParameter={x:Static root:Helper.StatusDictionary}}">
-                <TextBlock.Style>
-                    <Style TargetType="TextBlock">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding}"
-                                     Value="InProcessing">
-                                <Setter Property="Foreground"
-                                        Value="#FFE0AD20" />
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding}"
-                                     Value="Fail">
-                                <Setter Property="Foreground"
-                                        Value="#FFD62727" />
-                                <Setter Property="FontWeight"
-                                        Value="Bold" />
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding}"
-                                     Value="Authorized">
-                                <Setter Property="Foreground"
-                                        Value="#FF14CC52" />
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </TextBlock.Style>
-            </TextBlock>
+            <StackPanel DataContext="{Binding CurrentStatus}">
+                <TextBlock Text="{Binding  Converter={x:Static cvt:FromDictionaryConverter.Instance}, ConverterParameter={x:Static root:Helper.StatusDictionary}}">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding}"
+                                             Value="InProcessing">
+                                    <Setter Property="Foreground"
+                                            Value="#FFE0AD20" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding}"
+                                             Value="Fail">
+                                    <Setter Property="Foreground"
+                                            Value="#FFD62727" />
+                                    <Setter Property="FontWeight"
+                                            Value="Bold" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding}"
+                                             Value="Authorized">
+                                    <Setter Property="Foreground"
+                                            Value="#FF14CC52" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
 
-            <ProgressBar IsIndeterminate="True"
-                         Margin="0 7"
-                         Height="15">
-                <ProgressBar.Style>
-                    <Style TargetType="ProgressBar">
-                        <Setter Property="Visibility"
-                                Value="Hidden" />
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding}"
-                                         Value="InProcessing">
-                                <Setter Property="Visibility"
-                                        Value="Visible" />
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </ProgressBar.Style>
-            </ProgressBar>
-        </StackPanel>
-    </StackPanel >
+                <ProgressBar IsIndeterminate="True"
+                             Margin="0 7"
+                             Height="15">
+                    <ProgressBar.Style>
+                        <Style TargetType="ProgressBar">
+                            <Setter Property="Visibility"
+                                    Value="Hidden" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding}"
+                                             Value="InProcessing">
+                                    <Setter Property="Visibility"
+                                            Value="Visible" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ProgressBar.Style>
+                </ProgressBar>
+            </StackPanel>
+        </StackPanel >
+    </Border>
 </UserControl>

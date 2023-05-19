@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Model.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -6,7 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace RegAdmModel.Entities
 {
     [Table("clients")]
-    internal partial class Client
+    internal partial class Client : IClient
     {
         [Key]
         public int Id { get; set; }
@@ -26,6 +27,7 @@ namespace RegAdmModel.Entities
 
         public virtual ICollection<Reservation> Reservations { get; set; } = new List<Reservation>();
 
+        IEnumerable<IReservation> IClient.Reservations => Reservations;
         public Client() { }
         public Client(int id, string fullName, DateOnly birthDate, string seria, string number, string phone)
         {

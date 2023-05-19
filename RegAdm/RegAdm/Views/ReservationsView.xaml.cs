@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ViewModels.Interfaces;
 
 namespace RegAdm.Views
 {
@@ -23,6 +24,19 @@ namespace RegAdm.Views
         public ReservationsView()
         {
             InitializeComponent();
+        }
+
+        private void AddClick(object sender, RoutedEventArgs e)
+        {
+            //UserDialog.Add((IReservationsViewModel)DataContext);
+        }
+
+        private void UpdateClick(object sender, RoutedEventArgs e)
+        {
+            //var reservationDto = ((ReservationProxy)((Button)sender).DataContext).Data;
+
+            //UserDialog.Update(new TempUser(reservationDto.Id, userDto.FullName, userDto.BirthDate, userDto.Role, userDto.Login, userDto.Password),
+            //    (IReservationsViewModel)DataContext);
         }
     }
 }

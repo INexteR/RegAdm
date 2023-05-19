@@ -15,22 +15,47 @@
                             ObjectInstance="{StaticResource locator}"
                             MethodName="GetTablesForCurrentUser" />
     </UserControl.Resources>
-    <Grid>
+    <Grid Margin="7">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <Grid Margin="7">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
+        <Grid DataContext="{Binding Authorization, Source={StaticResource locator}, Mode=OneTime}">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock FontSize="15"
+                           DataContext="{Binding CurrentUser,Mode=OneTime}"
+                           FontStyle="Italic"
+                           TextTrimming="CharacterEllipsis"
+                           VerticalAlignment="Center">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{}{0}, {1}">
+                            <Binding Path="FullName" />
+                            <Binding Path="Role" />
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+                <Button Content="Выйти"
+                        Grid.Column="1"
+                        Command="{Binding Exit}"
+                        Margin="7 0 0 7" />
+            </Grid>
 
             <ListBox x:Name="tables"
                      SelectionMode="Single"
                      FontSize="11"
-                     ItemsSource="{Binding Source={StaticResource viewModels}, Mode=OneTime}">
+                     ItemsSource="{Binding Source={StaticResource viewModels}, Mode=OneTime}"
+                     Grid.Row="1">
 
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -63,16 +88,11 @@
                 </ListBox.ItemTemplate>
 
             </ListBox>
-
-            <Button Content="Выйти"
-                    Grid.Column="1"
-                    Margin="7 0 0 0"
-                    Command="{Binding Authorization.Exit, Source={StaticResource locator}}" />
         </Grid>
 
         <ContentControl Content="{Binding SelectedValue, ElementName=tables}"
                         Grid.Row="1"
-                        Margin="7 0 7 7">
+                        Margin="0 7 0 0">
             <ContentControl.Resources>
                 <DataTemplate DataType="{x:Type vms:RoomsViewModel}">
                     <vs:RoomsView />

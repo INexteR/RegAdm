@@ -1,0 +1,80 @@
+﻿<local:UserDialogBase x:Class="RegAdm.Dialogs.UserDialog"
+                      x:ClassModifier="internal"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      xmlns:local="clr-namespace:RegAdm.Dialogs"
+                      xmlns:m="clr-namespace:RegAdmModel;assembly=RegAdmModel"
+                      xmlns:cvt="clr-namespace:RegAdm.Converters"
+                      xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                      mc:Ignorable="d"
+                      Height="450"
+                      Width="800"
+                      WindowStartupLocation="CenterScreen"
+                      Style="{StaticResource ctrlStyle}">
+    <Window.Resources>
+        <local:UserDialogData x:Key="dialogData" />
+        <Style TargetType="TextBlock"
+               BasedOn="{StaticResource labelText}" />
+    </Window.Resources>
+    <Grid DataContext="{Binding Entity, Source={StaticResource dialogData}, ValidatesOnNotifyDataErrors=False}"
+          Margin="7">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <TextBlock x:Name="title"
+                   Style="{StaticResource titleStyle}" />
+        <Border Grid.Row="1"
+                BorderThickness="2"
+                CornerRadius="5"
+                BorderBrush="Gray">
+            <ScrollViewer VerticalScrollBarVisibility="Auto"
+                          Margin="7">
+                <StackPanel>
+                    <StackPanel.Resources>
+                        <Style TargetType="ContentControl"
+                               BasedOn="{StaticResource errorContent}" />
+                    </StackPanel.Resources>
+                    <TextBlock Text="ФИО" />
+                    <ContentControl>
+                        <TextBox Text="{Binding FullName, UpdateSourceTrigger=PropertyChanged}"
+                                 MaxLength="70" />
+                    </ContentControl>
+                    <TextBlock Text="Дата рождения" />
+                    <ContentControl>
+                        <DatePicker DisplayDateStart="1960.01.01"
+                                    DisplayDateEnd="{x:Static sys:DateTime.Today}"
+                                    SelectedDate="{Binding BirthDate,Converter={x:Static cvt:DatesConverter.Instance}, UpdateSourceTrigger=PropertyChanged}"
+                                    SelectedDateFormat="Long" />
+                    </ContentControl>
+                    <TextBlock Text="Должность" />
+                    <ContentControl>
+                        <ComboBox SelectedItem="{Binding Role, UpdateSourceTrigger=PropertyChanged}">
+                            <x:Static Member="m:RegistrationSettings.ADMINISTRATOR" />
+                            <x:Static Member="m:RegistrationSettings.SENIOR_ADMINISTRATOR" />
+                        </ComboBox>
+                    </ContentControl>
+                    <TextBlock Text="Логин" />
+                    <ContentControl>
+                        <TextBox Text="{Binding Login, UpdateSourceTrigger=PropertyChanged}"
+                                 MaxLength="40" />
+                    </ContentControl>
+                    <TextBlock Text="Пароль" />
+                    <ContentControl>
+                        <TextBox Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}"
+                                 MaxLength="20" />
+                    </ContentControl>
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+        <Button x:Name="button"
+                Grid.Row="2"
+                Content="Сохранить"
+                HorizontalAlignment="Center"
+                CommandParameter="{Binding ValidatesOnNotifyDataErrors=False}"
+                Margin="7" />
+    </Grid>
+</local:UserDialogBase>

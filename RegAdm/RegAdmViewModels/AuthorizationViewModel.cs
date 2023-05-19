@@ -3,7 +3,6 @@ using ViewModels;
 using Model.Interfaces;
 using ViewModels.Interfaces;
 using RegAdmModel;
-using Model.DTOs;
 
 namespace RegAdmViewModels
 {
@@ -12,7 +11,7 @@ namespace RegAdmViewModels
         private readonly IAuthorization _authorization;
 
         #region Прокси-свойства
-        public UserDto? CurrentUser => _authorization.CurrentUser;
+        public IUser? CurrentUser => _authorization.CurrentUser;
         public AuthorizationStatus CurrentStatus => _authorization.Status;
         #endregion
 

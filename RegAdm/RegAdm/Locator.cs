@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ViewModels;
 using ViewModels.Interfaces;
+using static RegAdmModel.RegistrationSettings;
 
 namespace RegAdm
 {
@@ -47,7 +48,7 @@ namespace RegAdm
             {
                 throw new NotSupportedException();
             }
-            if (Authorization.CurrentUser.Role is Helper.SENIOR_ADMINISTRATOR)
+            if (Authorization.CurrentUser.Role is SENIOR_ADMINISTRATOR)
             {
                 yield return UsersViewModel;
             }

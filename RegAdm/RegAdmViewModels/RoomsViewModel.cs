@@ -1,4 +1,4 @@
-﻿using Model.DTOs;
+﻿using Model.Collection;
 using Model.Interfaces;
 using RegAdmModel;
 using System;
@@ -9,30 +9,29 @@ using System.Text;
 using System.Threading.Tasks;
 using ViewModels;
 using ViewModels.Interfaces;
-using ViewModels.Proxies;
 
 namespace RegAdmViewModels
 {
     public class RoomsViewModel : ViewModelBase, IRoomsViewModel
     {
-        //private readonly IRegistration _registration;
+        private readonly ObservableCollection<IRoomType> roomTypes;
+        public IEnumerable<IRoomType> RoomTypes => roomTypes;
 
-        private readonly ObservableCollection<RoomTypeProxy> roomTypes;
-        public IEnumerable<RoomTypeProxy> RoomTypes => roomTypes;
-
-        private readonly ObservableCollection<RoomProxy> rooms;       
-        public IEnumerable<RoomProxy> Rooms => rooms;
+        private readonly ObservableCollection<IRoom> rooms;
+        public IEnumerable<IRoom> Rooms => rooms;
 
         public RoomsViewModel(IRegistration registration)
         {
-            //_registration = registration;
-            roomTypes = new(registration.RoomTypesRepository.GetAll()
-                .Select(rt => new RoomTypeProxy(rt)));
+            roomTypes = new ObservableCollection<IRoomType>(registration.RoomTypes);
+            rooms = new ObservableCollection<IRoom>(registration.Rooms);
+            registration.SourcesLoaded += OnSourcesLoaded;
+        }
 
-            rooms = new(registration.RoomsRepository.GetAll()
-                .Select(r => new RoomProxy(r, roomTypes.First(rt => rt.Id == r.RoomTypeId),
-                registration.ReservationsRepository.GetReservationsForRoom(r.Id)
-                .Sum(r => registration.ClientsRepository.GetClientsForReservation(r.Id).Count()))));
+        private void OnSourcesLoaded(object? sender, EventArgs e)
+        {
+            var registration = (IRegistration)sender!;
+            roomTypes.Reset(registration.RoomTypes);
+            rooms.Reset(registration.Rooms);
         }
 
         public RoomsViewModel() : this(new Registration()) { }
